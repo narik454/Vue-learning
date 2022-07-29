@@ -1,6 +1,9 @@
 <template>
 
-  <form class="create-post" @submit.prevent>
+  <form
+      class="create-post"
+      @submit.prevent="checkForm"
+  >
 
     <h1 class="create-post__title">Добавление товара</h1>
 
@@ -8,25 +11,45 @@
 
       <div>
         <h2>Наименование товара</h2>
-        <input v-model="post.title" type="text" placeholder="Введите наименование товара">
+        <input
+            v-model="post.title"
+            type="text"
+            placeholder="Введите наименование товара"
+        >
+        <span class="error" v-show="!post.title && error">Поле является обязательным</span>
       </div>
 
       <div>
         <h2>Описание товара</h2>
-        <input v-model="post.description" type="text" placeholder="Введите описание товара">
+        <input
+            v-model="post.description"
+            type="text"
+            placeholder="Введите описание товара"
+        >
       </div>
 
       <div>
         <h2>Ссылка на изображение товара</h2>
-        <input v-model="post.img" type="url" placeholder="Введите ссылку">
+        <input
+            v-model="post.img"
+            type="url"
+            placeholder="Введите ссылку"
+        >
+        <span class="error" v-show="!post.img && error">Поле является обязательным</span>
       </div>
 
       <div>
         <h2>Цена товара</h2>
-        <input v-model="post.price" type="number" placeholder="Введите цену" >
+        <input
+            v-model="post.price"
+            type="number"
+            placeholder="Введите цену"
+            min="0"
+        >
+        <span class="error" v-show="!post.price && error">Поле является обязательным</span>
       </div>
 
-      <button class="create-post__button" @click="createPost">Добавить товар</button>
+      <button type="submit" class="create-post__button">Добавить товар</button>
 
     </div>
 
@@ -39,11 +62,12 @@ export default {
   name: "PostForm",
   data() {
     return {
+      error: false,
       post: {
-        title: '',
-        description: '',
-        img: '',
-        price: ''
+        title: null,
+        description: null,
+        img: null,
+        price: null
       }
     }
   },
@@ -53,11 +77,19 @@ export default {
       this.$emit('create', this.post);
 
       this.post = {
-        title: '',
-        description: '',
-        img: '',
-        price: ''
+        title: null,
+        description: null,
+        img: null,
+        price: null
       };
+    },
+    checkForm() {
+      let formPost = this.post
+      this.error = true;
+      if (formPost.title && formPost.img && formPost.price) {
+        this.error = false;
+        return this.createPost();
+      }
     }
   }
 }
@@ -82,7 +114,9 @@ export default {
 }
 
 .create-post__inputs > div {
-  margin-bottom: 10px;
+  padding-bottom: 30px;
+  position: relative;
+  display: block;
 }
 
 .create-post__inputs h2 {
@@ -105,5 +139,16 @@ export default {
   letter-spacing: -0.02em;
   color: #B4B4B4;
   border-color: inherit;
+}
+.error {
+  padding-bottom: 15px;
+  position: absolute;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 10px;
+  letter-spacing: -0.02em;
+  color: #FF8484;
+  bottom: 0;
+  left: 0;
 }
 </style>

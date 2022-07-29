@@ -1,8 +1,14 @@
 <template>
 
   <div class="wrapper">
-    <post-form @create="createPost"/>
-    <post-list :posts="posts"/>
+    <post-form
+        @create="createPost"
+    />
+    <post-list
+        @delete="deletePost"
+        :posts="posts"
+        @transform="transformPost"
+    />
   </div>
 
 </template>
@@ -14,7 +20,6 @@ export default {
   name: 'App',
   data() {
     return {
-
       posts: [
         {id: 1,
           title: 'Nazvanie',
@@ -37,7 +42,6 @@ export default {
           price: '100000'
         }
       ]
-
     }
   },
   components: {
@@ -46,6 +50,12 @@ export default {
   methods: {
     createPost(post) {
       this.posts.push(post);
+    },
+    deletePost(post) {
+      this.posts.splice(post, 1);
+    },
+    transformPost() {
+
     }
   }
 }
@@ -87,9 +97,12 @@ input {
 }
 
 .wrapper {
+  margin: 0 auto;
   padding: 30px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
   gap: 30px;
+  width: 1570px;
 }
 
 
