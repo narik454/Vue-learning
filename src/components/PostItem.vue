@@ -1,6 +1,15 @@
 <template>
-  <div @click="transformPost" class="post" @mouseover="isHover = true" @mouseleave="isHover = false">
-    <div @click="deletePost" v-show="isHover" class="delete-btn"></div>
+  <div
+      @click="$emit('transform', post)"
+      class="post"
+      @mouseover="isHover = true"
+      @mouseleave="isHover = false"
+  >
+    <div
+        @click="$emit('delete', post)"
+        v-show="isHover"
+        class="delete-btn"
+    ></div>
     <img class="post-image" :src="post.img" :alt="post.title">
     <h2 class="post-title">{{post.title}}</h2>
     <p class="post-description">{{post.description}}</p>
@@ -18,13 +27,7 @@ export default {
     }
   },
   methods: {
-    transformPost() {
-      this.$emit('transform', this.post);
-      console.log('click')
-    },
-    deletePost() {
-      this.$emit('delete', this.post);
-    }
+
   },
   data() {
     return {

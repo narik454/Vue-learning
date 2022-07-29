@@ -21,21 +21,24 @@ export default {
   data() {
     return {
       posts: [
-        {id: 1,
+        {
+          id: 1,
           title: 'Nazvanie',
           description: 'Opisanie',
           img: 'https://druzhniy-center.ru/wp-content/uploads/8/f/9/8f970e878337c2170713b4f20eafb065.jpeg',
           price: '10000'
         },
 
-        {id: 2,
+        {
+          id: 2,
           title: 'Nazvanie 2',
-          description: 'dsfgds',
+          description: 'Opisanie 2',
           img: 'https://s1.1zoom.ru/b4344/471/Owls_Birds_Glance_537043_2560x1440.jpg',
           price: '1000'
         },
 
-        {id: 3,
+        {
+          id: 3,
           title: 'Nazvanie 3',
           description: 'Opisanie 3',
           img: 'https://i.pinimg.com/originals/d2/ca/cf/d2cacf3d6f4f4bbf746c30084f95a41c.jpg',
@@ -53,9 +56,10 @@ export default {
     },
     deletePost(post) {
       this.posts.splice(post, 1);
+      //this.posts = this.posts.filter(p => p.id !== post.id);
     },
-    transformPost() {
-
+    transformPost(post) {
+      console.log(post);
     }
   }
 }

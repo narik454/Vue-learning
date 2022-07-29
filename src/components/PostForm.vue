@@ -41,7 +41,7 @@
       <div>
         <h2>Цена товара</h2>
         <input
-            v-model="post.price"
+            v-model.number="post.price"
             type="number"
             placeholder="Введите цену"
             min="0"

@@ -10,17 +10,20 @@
       </select>
     </div>
 
-    <div class="posts">
+    <div class="posts" v-if="posts.length > 0">
 
       <post-item
-          :key="post"
+          :key="post.id"
           v-for="post in posts"
           :post="post"
-          @delete="deletePost"
-          @transform="transformPost"
+          @delete="$emit('delete', post)"
+          @transform="$emit('transform', post)"
       />
 
     </div>
+    <h2 v-else style="color: black">
+      Список постов пустой
+    </h2>
 
   </div>
 
@@ -40,12 +43,7 @@ export default {
     }
   },
   methods: {
-    deletePost() {
-      this.$emit('delete', this.posts);
-    },
-    transformPost() {
-      this.$emit('transform', this.posts)
-    }
+
   }
 }
 </script>
