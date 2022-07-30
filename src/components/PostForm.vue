@@ -49,7 +49,12 @@
         <span class="error" v-show="!post.price && error">Поле является обязательным</span>
       </div>
 
-      <button type="submit" class="create-post__button">Добавить товар</button>
+      <button
+          type="submit"
+          class="create-post__button"
+      >
+        Добавить товар
+      </button>
 
     </div>
 

@@ -13,7 +13,7 @@
     <img class="post-image" :src="post.img" :alt="post.title">
     <h2 class="post-title">{{post.title}}</h2>
     <p class="post-description">{{post.description}}</p>
-    <p class="post-price">{{post.price}} <span>руб.</span></p>
+    <p class="post-price">{{post.price.toLocaleString()}} <span>руб.</span></p>
   </div>
 </template>
 
@@ -25,9 +25,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  methods: {
-
   },
   data() {
     return {
