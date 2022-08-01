@@ -16,7 +16,7 @@
     <h2 v-else style="color: black">
       Список постов пустой
     </h2>
-
+{{searchPost}}
   </div>
 
 </template>
@@ -32,6 +32,9 @@ export default {
     posts: {
       type: Array,
       required: true
+    },
+    searchPost: {
+      type: String
     }
   }
 }

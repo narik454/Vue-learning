@@ -8,7 +8,7 @@
 
       <div class="post-list__select">
         <my-search
-          :input.sync="searchInput"
+          v-model="searchInput"
         />
         <my-select
             v-model="selectedSort"
@@ -18,10 +18,11 @@
       <post-list
           @delete="deletePost"
           :posts="sortedPosts"
+          :search-post="searchInput"
           @transform="transformPost"
       />
     </div>
-{{searchInput}}
+
   </div>
 
 </template>
@@ -90,8 +91,11 @@ export default {
         return post1[this.selectedSort] - post2[this.selectedSort]
       })
     },
-    computedList() {
-      return console.log(this.searchInput)
+    searchedList() {
+      return this.posts.filter(post => {
+        console.log(post.title)
+        return post.title.toLowerCase().includes(this.searchInput.toLowerCase())
+      })
     }
   }
 }

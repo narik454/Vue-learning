@@ -1,7 +1,7 @@
 <template>
 <input
     placeholder="Поиск"
-    @input="$emit('update:input', value)"
+    @input="search"
 >
 </template>
 
@@ -10,6 +10,11 @@ export default {
   name: "MySearch",
   props: {
     value: String
+  },
+  methods: {
+    search(e) {
+      this.$emit('input', e.target.value)
+    }
   }
 }
 </script>
