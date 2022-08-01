@@ -4,15 +4,24 @@
     <post-form
         @create="createPost"
     />
-    <post-list
-        @delete="deletePost"
-        :posts="posts"
-        @transform="transformPost"
-    />
-<!--    <my-select-->
-<!--      :options="sortOptions"-->
-<!--      v-model="selectedSort"-->
-<!--    />-->
+    <div style="min-width: 1080px">
+
+      <div class="post-list__select">
+        <my-search
+          :input.sync="searchInput"
+        />
+        <my-select
+            v-model="selectedSort"
+            :options="sortOptions"
+        />
+      </div>
+      <post-list
+          @delete="deletePost"
+          :posts="sortedPosts"
+          @transform="transformPost"
+      />
+    </div>
+{{searchInput}}
   </div>
 
 </template>
@@ -20,7 +29,8 @@
 <script>
 import PostList from "@/components/PostList";
 import PostForm from "@/components/PostForm";
-//import MySelect from "@/components/UI/MySelect";
+import MySelect from "@/components/UI/MySelect";
+import MySearch from "@/components/UI/MySearch";
 
 export default {
   name: 'App',
@@ -51,39 +61,49 @@ export default {
           price: 100000
         }
       ],
-      // selectedSort: null,
-      // sortOptions: [
-      //   {value: 'title', name: 'По названию'},
-      //   {value: 'price', name: 'По цене'}
-      // ]
+      selectedSort: '',
+      sortOptions: [
+        {value: 'id', name: 'По умолчанию'},
+        {value: 'title', name: 'По названию'},
+        {value: 'price', name: 'По цене'}
+      ],
+      searchInput: null
     }
   },
   components: {
-    PostList, PostForm
+    PostList, PostForm, MySelect, MySearch
   },
   methods: {
     createPost(post) {
       this.posts.push(post);
     },
     deletePost(post) {
-      this.posts.splice(post, 1);
-      //this.posts = this.posts.filter(p => p.id !== post.id);
+      this.posts = this.posts.filter(p => p.id !== post.id);
     },
     transformPost(post) {
-      console.log(post);
+      console.log(post)
     }
   },
   computed: {
-    // sortedPosts() {
-    //   return [...this.posts].sort((post1, post2) => {
-    //     post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]);
-    //   })
-    // }
+    sortedPosts() {
+      return [...this.posts].sort((post1, post2) => {
+        return post1[this.selectedSort] - post2[this.selectedSort]
+      })
+    },
+    computedList() {
+      return console.log(this.searchInput)
+    }
   }
 }
 </script>
 
 <style>
+
+.post-list__select {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
 
 * {
   margin: 0;

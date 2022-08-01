@@ -2,9 +2,7 @@
   <select
       class="select-btn"
       @change="changeOption"
-      :value ="modelValue"
   >
-    <option value="">По умолчанию</option>
     <option
         v-for="option in options"
         :key="option.value"
@@ -18,14 +16,9 @@
 <script>
 export default {
   name: "MySelect",
-  data(){
-    return {
-      modelValue: this.value
-    }
-  },
   props: {
     value: {
-      type: String
+      type: [String, Number]
     },
     options: {
       type: Array,
@@ -34,12 +27,21 @@ export default {
   },
   methods: {
     changeOption(event) {
-      this.$emit('update:value', event.target.value)
+      this.$emit('input', event.target.value)
     }
   }
 }
 </script>
 
 <style scoped>
-
+.select-btn {
+  height: 36px;
+  background: #FFFEFB;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: black;
+}
 </style>
