@@ -52,6 +52,7 @@
       <button
           type="submit"
           class="create-post__button"
+          :class="{'create-post__button-active': isFilled}"
       >
         Добавить товар
       </button>
@@ -82,10 +83,10 @@ export default {
       this.$emit('create', this.post);
 
       this.post = {
-        title: null,
-        description: null,
-        img: null,
-        price: null
+        title: undefined,
+        description: undefined,
+        img: undefined,
+        price: undefined
       };
     },
     checkForm() {
@@ -96,11 +97,17 @@ export default {
         return this.createPost();
       }
     }
+  },
+  computed: {
+    isFilled() {
+      return this.post.title && this.post.img && this.post.price
+    }
   }
 }
 </script>
 
 <style scoped>
+
 .create-post {
   width: 400px;
   min-width: 400px;
@@ -145,6 +152,11 @@ export default {
   color: #B4B4B4;
   border-color: inherit;
 }
+
+.create-post__button-active {
+  background: #2fc12f;
+}
+
 .error {
   padding-bottom: 15px;
   position: absolute;
@@ -156,4 +168,5 @@ export default {
   bottom: 0;
   left: 0;
 }
+
 </style>

@@ -9,14 +9,14 @@
           :key="post.id"
           :post="post"
           @delete="$emit('delete', post)"
-          @transform="$emit('transform', post)"
+          @edit="$emit('edit', post)"
       />
 
     </div>
     <h2 v-else style="color: black">
       Список постов пустой
     </h2>
-{{searchPost}}
+
   </div>
 
 </template>

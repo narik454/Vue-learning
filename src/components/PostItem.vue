@@ -1,6 +1,6 @@
 <template>
   <div
-      @click="$emit('transform', post)"
+      @click="$emit('edit', post)"
       class="post"
       @mouseover="isHover = true"
       @mouseleave="isHover = false"
