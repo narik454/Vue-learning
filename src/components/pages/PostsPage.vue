@@ -4,7 +4,7 @@
       <post-form
           :title="'Изменение товара'"
           :btn-name="'Изменить товар'"
-          @create="createPost"
+          @edit="editPost"
       />
     </my-dialog>
 
@@ -79,7 +79,7 @@ export default {
         {value: 'title', name: 'По названию'},
         {value: 'price', name: 'По цене'}
       ],
-      editPost: undefined,
+      editPostValue: undefined,
       dialogVisible: false
     }
   },
@@ -98,6 +98,9 @@ export default {
     updatePosts() {
       const json = JSON.stringify(this.posts);
       localStorage.setItem('posts', json);
+    },
+    editPost(post) {
+      this.editPostValue = post;
     }
   },
   computed: {
