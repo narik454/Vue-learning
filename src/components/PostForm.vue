@@ -5,7 +5,7 @@
       @submit.prevent="checkForm"
   >
 
-    <h1 class="create-post__title">Добавление товара</h1>
+    <h1 class="create-post__title">{{ title }}</h1>
 
     <div class="create-post__inputs">
 
@@ -54,7 +54,7 @@
           class="create-post__button"
           :class="{'create-post__button-active': isFilled}"
       >
-        Добавить товар
+        {{ btnName }}
       </button>
 
     </div>
@@ -66,14 +66,24 @@
 <script>
 export default {
   name: "PostForm",
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    btnName: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       error: false,
       post: {
-        title: null,
-        description: null,
-        img: null,
-        price: null
+        title: undefined,
+        description: undefined,
+        img: undefined,
+        price: undefined
       }
     }
   },
@@ -90,9 +100,8 @@ export default {
       };
     },
     checkForm() {
-      let formPost = this.post
       this.error = true;
-      if (formPost.title && formPost.img && formPost.price) {
+      if (this.isFilled) {
         this.error = false;
         return this.createPost();
       }

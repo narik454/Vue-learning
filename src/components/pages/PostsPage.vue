@@ -1,8 +1,19 @@
 <template>
   <div class="wrapper">
+    <my-dialog v-model="dialogVisible">
+      <post-form
+          :title="'Изменение товара'"
+          :btn-name="'Изменить товар'"
+          @create="createPost"
+      />
+    </my-dialog>
+
     <post-form
+        :title="'Добавление товара'"
+        :btn-name="'Добавить товар'"
         @create="createPost"
     />
+
     <div>
 
       <div class="post-list__select">
@@ -30,6 +41,7 @@ import PostList from "@/components/PostList";
 import PostForm from "@/components/PostForm";
 import MySelect from "@/components/UI/MySelect";
 import MySearch from "@/components/UI/MySearch";
+import MyDialog from "@/components/UI/MyDialog";
 
 export default {
   name: 'PostPage',
@@ -66,11 +78,13 @@ export default {
         {value: 'id', name: 'По умолчанию'},
         {value: 'title', name: 'По названию'},
         {value: 'price', name: 'По цене'}
-      ]
+      ],
+      editPost: undefined,
+      dialogVisible: false
     }
   },
   components: {
-    PostList, PostForm, MySelect, MySearch
+    PostList, PostForm, MySelect, MySearch, MyDialog
   },
   methods: {
     createPost(post) {
@@ -80,9 +94,6 @@ export default {
     deletePost(post) {
       this.posts = this.posts.filter(p => p.id !== post.id);
       this.updatePosts();
-    },
-    editPost(post) {
-      console.log(post)
     },
     updatePosts() {
       const json = JSON.stringify(this.posts);
