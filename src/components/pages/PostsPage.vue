@@ -1,13 +1,5 @@
 <template>
   <div class="wrapper">
-    <my-dialog v-model="dialogVisible">
-      <post-form
-          :title="'Изменение товара'"
-          :btn-name="'Изменить товар'"
-          @edit="editPost"
-      />
-    </my-dialog>
-
     <post-form
         :title="'Добавление товара'"
         :btn-name="'Добавить товар'"
@@ -28,8 +20,6 @@
       <post-list
           @delete="deletePost"
           :posts="sortedPosts"
-          :search-post="searchInput"
-          @edit="editPost"
       />
     </div>
 
@@ -41,7 +31,6 @@ import PostList from "@/components/PostList";
 import PostForm from "@/components/PostForm";
 import MySelect from "@/components/UI/MySelect";
 import MySearch from "@/components/UI/MySearch";
-import MyDialog from "@/components/UI/MyDialog";
 
 export default {
   name: 'PostPage',
@@ -55,36 +44,33 @@ export default {
           img: 'https://druzhniy-center.ru/wp-content/uploads/8/f/9/8f970e878337c2170713b4f20eafb065.jpeg',
           price: 10000
         },
-        //
-        // {
-        //   id: 2,
-        //   title: 'Ааа, я думала сова',
-        //   description: '...',
-        //   img: 'https://s1.1zoom.ru/b4344/471/Owls_Birds_Glance_537043_2560x1440.jpg',
-        //   price: 1000
-        // },
-        //
-        // {
-        //   id: 3,
-        //   title: 'Сова',
-        //   description: 'описание совы',
-        //   img: 'https://i.pinimg.com/originals/d2/ca/cf/d2cacf3d6f4f4bbf746c30084f95a41c.jpg',
-        //   price: 100000
-        // }
+        
+        {
+          id: 2,
+          title: 'Ааа, я думала сова',
+          description: '...',
+          img: 'https://s1.1zoom.ru/b4344/471/Owls_Birds_Glance_537043_2560x1440.jpg',
+          price: 1000
+        },
+        
+        {
+          id: 3,
+          title: 'Сова',
+          description: 'описание совы',
+          img: 'https://i.pinimg.com/originals/d2/ca/cf/d2cacf3d6f4f4bbf746c30084f95a41c.jpg',
+          price: 100000
+        }
       ],
       selectedSort: undefined,
       searchInput: undefined,
       sortOptions: [
         {value: 'id', name: 'По умолчанию'},
-        {value: 'title', name: 'По названию'},
         {value: 'price', name: 'По цене'}
-      ],
-      editPostValue: undefined,
-      dialogVisible: false
+      ]
     }
   },
   components: {
-    PostList, PostForm, MySelect, MySearch, MyDialog
+    PostList, PostForm, MySelect, MySearch
   },
   methods: {
     createPost(post) {
@@ -98,9 +84,6 @@ export default {
     updatePosts() {
       const json = JSON.stringify(this.posts);
       localStorage.setItem('posts', json);
-    },
-    editPost(post) {
-      this.editPostValue = post;
     }
   },
   computed: {
@@ -117,6 +100,7 @@ export default {
           return post1[this.selectedSort] - post2[this.selectedSort]
         })
       }
+
       return posts
     }
   },

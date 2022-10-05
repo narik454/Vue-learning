@@ -9,7 +9,6 @@
           :key="post.id"
           :post="post"
           @delete="$emit('delete', post)"
-          @edit="$emit('edit', post)"
       />
 
     </div>
@@ -32,9 +31,6 @@ export default {
     posts: {
       type: Array,
       required: true
-    },
-    searchPost: {
-      type: String
     }
   }
 }
